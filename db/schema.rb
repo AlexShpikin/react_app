@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20171003064538) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "competitions", force: :cascade do |t|
     t.string "title"
     t.date "date"

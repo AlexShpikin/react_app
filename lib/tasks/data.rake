@@ -30,7 +30,8 @@ def make_sportsman
     Sportsman.create(
       name: name,
       sername: sername,
-      sport_id: sport_id)
+      sport_id: sport_id,
+      user_id: nil)
   end
 end
 

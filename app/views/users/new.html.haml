@@ -5,6 +5,7 @@
 			= render 'shared/error_messages'
 			= f.label :login, 'Почта'
 			= f.text_field :login
+			= f.label :role, 'Кто вы'
 			= f.select :role, @roles
 			= f.label :password, 'Пароль'
 			= f.password_field :password

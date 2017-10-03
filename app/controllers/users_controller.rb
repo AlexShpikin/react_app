@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @pointsList.push(@sportsman.relationships.map.with_index{|s, i| {:x=>i, :y=>Relationship.where(competition_id:s.competition_id).pluck(:result).max}})
     @pointsList.push(@sportsman.relationships.map.with_index{|s, i| {:x=>i, :y=>Relationship.where(competition_id:s.competition_id).pluck(:result).inject(0){|sum, i| sum+i}/Relationship.where(competition_id:s.competition_id).count}})
     @points.push({:points=>@pointsList, :xValues=>(0..@sportsman.relationships.count).to_a, :yMin=>0, :yMax=>Relationship.all.pluck(:result).max})
-    
+    puts @points 
   end
 
   def new
