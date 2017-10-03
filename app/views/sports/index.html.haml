@@ -1,0 +1,20 @@
+%h1 Виды спорта
+%table.table
+	%thead
+		%tr
+			%td
+				%b Id
+			%td
+				%b Название
+			%td
+				%b
+			%td
+				%b 	 
+	%tbody			
+		- @sports.each do |sport|
+			%tr
+				%td= sport.id
+				%td= sport.title
+				%td= link_to 'Удалить', sport, method: :delete, data: { confirm: "You sure?" }
+				%td= link_to 'Редактировать', edit_sport_path(sport)
+=link_to 'Создать новый', new_sport_path				

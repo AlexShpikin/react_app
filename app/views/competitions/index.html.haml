@@ -1,0 +1,21 @@
+%h1 Список соревнований
+%table{:class=>"table"}
+	%thead
+		%tr
+			%td
+				%b Название
+			%td
+				%b Дата
+			%td
+				%b Вид спорта
+			%td
+				%b	
+	%tbody		
+	- @competitions.each do |competition|
+		%tr
+			%td= competition.title
+			%td= competition.date
+			%td= sport_name(competition.sport_id)
+			%td= link_to 'Удалить', competition, method: :delete, data: { confirm: "You sure?" }
+			%td= link_to 'Редактировать', edit_competition_path(competition)
+=link_to 'Создать новое', new_competition_path			

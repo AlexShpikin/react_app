@@ -1,0 +1,25 @@
+%h1 Cписок спортсменов
+%table.table
+	%thead
+		%tr
+			%td 
+				%b Имя
+			%td 
+				%b Фамилия
+			%td 
+				%b Вид спорта
+			%td 
+				%b 
+			%td 
+				%b 
+	%tbody
+		- @sportsmans.each do |sportsman|
+			%tr
+				%td= sportsman.name
+				%td= sportsman.sername
+				%td= sport_name(sportsman.sport_id)
+				%td= link_to 'Удалить', sportsman, method: :delete, data: { confirm: "You sure?" }
+				%td= link_to 'Редактировать', edit_sportsman_path(sportsman)
+
+=link_to 'Создать спортсмена', new_competition_path			 
+	

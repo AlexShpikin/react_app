@@ -1,0 +1,7 @@
+%h1 Авторизация
+= form_for(:session, url: sessions_path) do |f|
+	= f.label :login, 'Логин'
+	= f.text_field :login
+	= f.label :password, 'Пароль'
+	= f.password_field :password
+	= f.submit "Войти", class: "btn btn-large btn-primary"

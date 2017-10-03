@@ -1,0 +1,17 @@
+%table{:class=> 'table'}
+	%thead
+		%tr
+			%td
+				%b Название соревнования
+			%td
+				%b Дата проведения
+			%td
+				%b Вид спорта
+	%tbody
+		%tr
+			%td= @competition.title
+			%td= @competition.date
+			%td= @competition.sport_name(@competition.sport_id)
+=link_to 'Все соревнования', competitions_url
+=link_to 'Создать', new_competition_path
+=link_to 'Редактировать', edit_competition_path					

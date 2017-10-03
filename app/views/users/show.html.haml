@@ -1,0 +1,16 @@
+%table{:class=> 'table'}
+	%thead
+		%tr
+			%td
+				%b Имя
+			%td
+				%b Фамилия
+			%td
+				%b Вид спорта
+	%tbody
+		%tr
+			%td= @sportsman.name
+			%td= @sportsman.sername
+			%td= sport_name(@sportsman.sport_id)
+-	if sportsman?
+	= render('sportsman')							

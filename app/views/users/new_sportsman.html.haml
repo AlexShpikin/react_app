@@ -1,0 +1,13 @@
+%h1
+	%span  Карточка спортсмена
+%div.row
+	%div.form
+		= form_for(:users, url: create_sportsman_user_path) do |f|
+			= f.label :name, 'Имя'
+			= f.text_field :name
+			= f.label :sername, 'Фамилия'
+			= f.text_field :sername
+			= f.label :sport_id, 'Вид спорта'
+			= f.select :sport_id, @sports
+			= f.hidden_field(:user_id, :value => @user.id)
+			= f.submit 'Сохранить данные'

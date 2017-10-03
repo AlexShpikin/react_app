@@ -1,0 +1,11 @@
+%h1 Create new competition
+%div.row
+	%div.form
+		= form_for @competition do |f|
+			= f.label :title
+			= f.text_field :title
+			= f.label :date
+			= f.text_field :date
+			= f.select :sport_id, @sports
+			= f.submit
+	

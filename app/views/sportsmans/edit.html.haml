@@ -1,0 +1,13 @@
+%h1
+	%span  Редактировать
+	%span= @sportsman.name 
+	%span= @sportsman.sername 
+%div.row
+	%div.form
+		= form_for @sportsman do |f|
+			= f.label :name
+			= f.text_field :name
+			= f.label :sername
+			= f.text_field :sername
+			= f.select :sport_id, @sports
+			= f.submit

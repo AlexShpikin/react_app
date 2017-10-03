@@ -1,0 +1,13 @@
+%header.navbar.navbar-inverse
+  %div.navbar-inner
+    %div.container
+      %nav
+        %ul.nav.nav-pills.pull-right
+          - if signed_in?
+            %li= link_to 'На главную', root_path
+            %li= link_to 'Соревнования', competitions_path
+            %li= link_to 'Спортсмены', sportsmans_path
+            %li= link_to 'Виды спорта', sports_path
+            %li= link_to "Выйти", signout_path, method: "delete"
+          - else
+            %li= link_to "Войти", signin_path

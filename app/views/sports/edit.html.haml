@@ -1,0 +1,9 @@
+%h1
+	%span  Редактировать
+	%span= @sport.title
+%div.row
+	%div.form
+		= form_for @sport do |f|
+			= f.label :title
+			= f.text_field :title
+			= f.submit
