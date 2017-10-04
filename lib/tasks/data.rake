@@ -13,7 +13,7 @@ def make_sports
   sportList.each do |title|
     # NOTE: здесь уместнее метод find_or_create_by, чтобы не дублировались
     # виды спорта пнри повторном запуске
-    Sport.create(title: title)
+    Sport.find_or_create_by(title: title)
   end
 end
 
@@ -22,13 +22,14 @@ def make_roles
   rolesList.each do |role|
     # NOTE: здесь уместнее метод find_or_create_by, чтобы роли не дублировались
     # кроме того, роли лучше вынести в seeds, 
-    Role.create(title: role)
+    Role.find_or_create_by(title: role)
   end
 end
 
 def make_sportsman
   99.times do |n|
     name  = Faker::Name.first_name
+  
     sername  = Faker::Name.first_name
     sport_id = rand(1..Sport.count)
     Sportsman.create(
