@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+	# NOTE форматирование страдает. когда так делают - в мире грустит один rubocop
 	before_save { self.login = login.downcase }
   	before_create :create_remember_token
 	validates :role, presence: true

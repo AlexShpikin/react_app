@@ -11,13 +11,17 @@ end
 def make_sports
   sportList = ['бег', 'плавание', 'прыжки в длину', 'лыжи', 'прыжки с шестом']
   sportList.each do |title|
+    # NOTE: здесь уместнее метод find_or_create_by, чтобы не дублировались
+    # виды спорта пнри повторном запуске
     Sport.create(title: title)
-  end 
+  end
 end
 
-def make_roles  
+def make_roles
   rolesList = ['sportsman', 'trener']
   rolesList.each do |role|
+    # NOTE: здесь уместнее метод find_or_create_by, чтобы роли не дублировались
+    # кроме того, роли лучше вынести в seeds, 
     Role.create(title: role)
   end
 end
@@ -41,7 +45,7 @@ end
 
 def make_competition
   10.times do |competition|
-    title = Faker::Team.sport  
+    title = Faker::Team.sport
     date = rand_date(rand(1..31))
     sport_id = rand(1..Sport.count)
     Competition.create(
@@ -63,6 +67,6 @@ def make_relation
       place = (places - places_new)[place_]
       Relationship.create(competition_id:competition.id, sportsman_id: sportsman.id, result: place*result, place: place)
       places_new.push(place)
-    end  
+    end
   end
-end    
+end
