@@ -2,7 +2,7 @@ var BarChart = React.createClass({
     getDefaultProps: function() {
         return {
             width: 300,
-            height: 100,
+            height: 200,
             chartId: 'v_chart'
         };
     },
@@ -31,14 +31,10 @@ var BarChart = React.createClass({
             .rangeRoundBands([0,this.state.width],.35);
 
         var y=d3.scale.linear()
-            .domain([0,40])
+            .domain([0,100])
             .range([this.props.height,0]);
 
-        
-
-
         var rectBackground=(data).map(function(d, i) {
-
             return (
                 <rect fill="#58657f" rx="3" ry="3" key={i}
                       x={x(d.title)} y={margin.top-margin.bottom}
@@ -68,7 +64,7 @@ var BarChart = React.createClass({
                     </g>
                 </svg>
             </div>
-            );
+        );
     }
 
 });

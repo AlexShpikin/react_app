@@ -1,4 +1,7 @@
 var TableResults = React.createClass({
+	propTypes: {
+	    data: React.PropTypes.array
+	},
 	getInitialState: function(){
 		return {
 			data: this.props.data
@@ -12,13 +15,7 @@ var TableResults = React.createClass({
 		});
 		return (
 			<table className="table">
-				<thead>
-					<tr>
-						<td><b>Спортсмен</b></td>
-						<td><b>Результат</b></td>
-						<td><b>Место</b></td>
-					</tr>
-				</thead>
+				<TableHead />
 				<tbody>
 					{list}
 				</tbody>

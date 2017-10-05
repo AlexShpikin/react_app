@@ -4,4 +4,10 @@ class Competition < ApplicationRecord
 	validates :title, presence: true
 	validates :date, presence: true
 	validates :sport_id, presence: true
+	def competitions
+		relationships.count
+	end
+	def results
+		relationships.pluck(:result)
+	end
 end

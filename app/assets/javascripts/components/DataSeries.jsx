@@ -2,7 +2,7 @@ const DataSeries = React.createClass({
 
   propTypes: {
     colors:             React.PropTypes.func,
-    data:               React.PropTypes.object,
+    data:               React.PropTypes.array,
     interpolationType:  React.PropTypes.string,
     xScale:             React.PropTypes.func,
     yScale:             React.PropTypes.func
@@ -15,6 +15,9 @@ const DataSeries = React.createClass({
       colors:             d3.scale.category10()
     };
   },
+  componentWillMount: function(){
+    console.log(this.props.data)
+  },
   render() {
     let { data, colors, xScale, yScale, interpolationType } = this.props;
 
@@ -22,15 +25,13 @@ const DataSeries = React.createClass({
       .interpolate(interpolationType)
       .x((d) => { return xScale(d.x); })
       .y((d) => { return yScale(d.y); });
+
     var x=d3.scale.linear()
             .domain([0,300])
             .range([0, 4]);
 
-    var axis = d3.svg.axis() 
-            .scale(x) // функция интерполяции
-            .orient('bottom') // горизонтальная
-            .ticks(5); // сколько делений на оси  
-    let lines = data.points.map((series, id) => {
+    
+    let lines = data.map((series, id) => {
       return (
         <Line
           path={line(series)}
@@ -43,7 +44,6 @@ const DataSeries = React.createClass({
     return (
       <g>
         <g>{lines}</g>
-        <g>{axis}</g>
       </g>
     );
   }

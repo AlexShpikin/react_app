@@ -1,9 +1,19 @@
 var Stats = React.createClass({
+	propTypes: {
+	    data: React.PropTypes.array,
+	    active: React.PropTypes.number,
+	    points: React.PropTypes.array
+	},
 	getInitialState: function(){
 		return {
 			data: this.props.data,
 			active: 0,
 			points: []
+		}
+	},
+	getDefautProps: function(){
+		return {
+			data: []
 		}
 	},
 	loadData: function(index){
@@ -15,21 +25,30 @@ var Stats = React.createClass({
 				data: 'index='+index,
 				dataType: 'JSON',
 				success: function(response){
-					self.setState({data:response[0].data, active: index, points: response[0].linedata})
+					self.setState({data:response.data, active: index, points: response.points})
 				}
 			})
 		}else{
 			this.setState({data:this.props.data, active: index})
 		}
 	},
+	summElements: function(arr){
+		return arr.reduce(function(sum, current) { return sum + current}, 0)
+	},
+	componentWillMount: function(){
+	},
 	render: function(){
 		var secondGraph;
 		if(this.state.active > 0){
-			
-			secondGraph = <LineChart data={this.state.points} width={600} height={300}/>
+			var dataMiddle = this.state.points.map(function(value, index){return {'x':index, 'y': this.summElements(value.results)/value.results.length}}, this),
+				dataMax = this.state.points.map(function(value, index){return	{'x':index, 'y':Math.max(...value.results)}}),
+	        	xValues = this.state.points.map(function(value, index){return index}),
+	        	yMax = Math.max(...this.state.points.map(function(index){return Math.max(...index.results)})),
+	        	points = [dataMax, dataMiddle];
+	        	
+			secondGraph = <LineChart data={points} yMax={yMax} xValues={xValues} width={600} height={300}/>
 		}else{
 			secondGraph = <DonutChart  data={this.state.data} id='1'/>
-			//secondGraph = <LineChart  data={data} width={600} height={300}/>
 		}
 		return  (
 			<div className="container">

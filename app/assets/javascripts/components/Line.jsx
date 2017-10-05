@@ -14,7 +14,7 @@ const Line = React.createClass({
       strokeWidth:  3
     };
   },
-  
+
   render() {
     let { path, stroke, fill, strokeWidth } = this.props;
     return (

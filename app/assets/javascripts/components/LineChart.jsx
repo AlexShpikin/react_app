@@ -3,13 +3,13 @@ var LineChart = React.createClass({
   propTypes: {
     width:  React.PropTypes.number,
     height: React.PropTypes.number,
-    data:   React.PropTypes.object.isRequired
+    data:   React.PropTypes.array.isRequired
   },
 
   getDefaultProps(){
     return {
       width:  600,
-      height: 300
+      height: 500
     }
   },
   
@@ -19,13 +19,13 @@ var LineChart = React.createClass({
     var height = this.props.height;
 
     var xScale = d3.scale.ordinal()
-                   .domain(data.xValues)
+                   .domain(this.props.xValues)
                    .rangePoints([0, width]);
 
     var yScale = d3.scale.linear()
                    .range([height, 10])
-                   .domain([data.yMin, data.yMax]);
-
+                   .domain([0, this.props.yMax]);
+    console.log(this.props.xValues)               
     return (
       <svg width={width} height={height}>
           <DataSeries

@@ -4,19 +4,7 @@ class SportsmansController < ApplicationController
 	end
 
 	def show
-		@points = Array.new
-		@pointsList = Array.new
 		@sportsman = Sportsman.find(params[:id])
-		@competitions = Competition.all
-
-		# NOTE: здесь нужно отдавать сериализованые объекты модели.
-    #  для этого можно использовать либо jbuilder, либо гем Serializer (предпочтительнее), либо тупо метод to_json
-    #  кроме того, это все абсолютно не читабельно
-		@pointsList.push(@sportsman.relationships.map.with_index{|s, i| {:x=>i, :y=>s.result}})
-		@pointsList.push(@sportsman.relationships.map.with_index{|s, i| {:x=>i, :y=>Relationship.where(competition_id:s.competition_id).pluck(:result).max}})
-		@pointsList.push(@sportsman.relationships.map.with_index{|s, i| {:x=>i, :y=>Relationship.where(competition_id:s.competition_id).pluck(:result).inject(0){|sum, i| sum+i}/Relationship.where(competition_id:s.competition_id).count}})
-		@points.push({:points=>@pointsList, :xValues=>(0..@sportsman.relationships.count).to_a, :yMin=>0, :yMax=>Relationship.all.pluck(:result).max})
-		puts @points
 	end
 
 	def index
@@ -50,9 +38,11 @@ class SportsmansController < ApplicationController
 		Sportsman.find(params[:id]).destroy
 		redirect_to sportsmans_url
 	end
-	 def load
-	 	render json: Competition.find(params[:index]).relationships.order(:place).map{|r| {:name=>Sportsman.find(r.sportsman_id).name, :sername=>Sportsman.find(r.sportsman_id).sername, :result=>r.result, :place=>r.place}}
+
+	def load
+	 	render json: Competition.find(params[:index]).relationships.order(:place).as_json(only: [:result, :place], methods: [:name, :sername])
 	end
+
 	private
 		def sportsman_params
 			params.require(:sportsman).permit(:name, :sername, :sport_id, :user_id)

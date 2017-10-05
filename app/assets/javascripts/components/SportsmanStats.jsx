@@ -1,7 +1,7 @@
 var SportsmanStats = React.createClass({
 	getInitialState: function(){
 		return {
-			data: this.props.data,
+			data: [],
 			active: 0
 		}
 	},
@@ -19,8 +19,23 @@ var SportsmanStats = React.createClass({
 			})
 		}
 	},
+	componentWillMount: function(){
+		console.log(this.props)
+	},
+	summElements: function(arr){
+		return arr.reduce(function(sum, current) { return sum + current}, 0)
+	},
 	render: function(){
 		var secondGraph = '';
+		var points = [];
+	    var dataUser = this.props.results.map(function(value, index){return {'x':index, 'y':value.result}}),
+	    	dataMax = this.props.results.map(function(value, index){return {'x':index, 'y':Math.max(...value.all_results)}}),
+	    	yMax = Math.max(...this.props.results.map(function(index){return Math.max(...index.all_results)})),
+	    	xValues = this.props.results.map(function(value, index){return index}),
+	    	dataMiddle = this.props.results.map(function(value, index){return {'x':index, 'y': this.summElements(value.all_results)/value.all_results.length}}, this);  	
+	    
+	    points = [dataMax, dataUser, dataMiddle];
+		
 		if(this.state.active > 0){
 			secondGraph = <TableResults data={this.state.data}/>
 		}
@@ -31,7 +46,7 @@ var SportsmanStats = React.createClass({
 				</div>
 				<div className="graphs">
 					<h3>Результаты:</h3>
-					<LineChart  data={this.props.points[0]} width={600} height={300}/>
+					<LineChart data={points} yMax={yMax} xValues={xValues} width={600} height={300}/>
 				</div>
 				<div className="content">
 					{secondGraph}
