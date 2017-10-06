@@ -34,6 +34,7 @@ class SportsController < ApplicationController
 	end
 
 	def destroy
+		#проверка на удаление
 		Sport.find(params[:id]).destroy
 		redirect_to sports_url
 	end

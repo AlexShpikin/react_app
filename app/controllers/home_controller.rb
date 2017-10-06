@@ -1,12 +1,13 @@
 class HomeController < ApplicationController
+  
   def index
   	@sports = Sport.all
-  	@data = @sports.map{|s| {:title=>s.title, :sportsmans=>s.sportsmans.count, :competitions=>s.competitions.count}}
+    @data = ActiveModel::Serializer::CollectionSerializer.new(@sports, each_serializer: SportSerializer)
   end
+  
   def load
-  	render :json => {
-      :data => Sport.find(params[:index]).competitions.as_json(only: [:title], methods: :competitions),
-      :points => Sport.find(params[:index]).competitions.as_json(only: [:title], methods: :results)
-    }
+    @sport = Sport.find(params[:index])
+    render :json => @sport, :serializer => SportSerializer 
   end
+
 end

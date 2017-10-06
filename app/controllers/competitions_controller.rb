@@ -35,6 +35,7 @@ class CompetitionsController < ApplicationController
 	end
 
 	def destroy
+		#Сделать проверку на удаление
 		Competition.find(params[:id]).destroy
 		redirect_to competitions_url
 	end

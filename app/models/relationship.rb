@@ -12,7 +12,7 @@ class Relationship < ApplicationRecord
 	end
 
 	def sername
-		sportsman.name
+		sportsman.sername
 	end
 	
 	def all_results

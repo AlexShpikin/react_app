@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get '/home/load', to: 'home#load'
   get '/sportsmans/load', to: 'sportsmans#load'
+  resources :roles
   resources :users do	
   	member do
         get :new_sportsman, :edit_sportsman

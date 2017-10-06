@@ -1,3 +1,4 @@
+#TODO  переписать нормально
 class User < ApplicationRecord
 	# NOTE форматирование страдает. когда так делают - в мире грустит один rubocop
 	before_save { self.login = login.downcase }
@@ -19,6 +20,7 @@ class User < ApplicationRecord
 	end
 
 	private
+
 	    def create_remember_token
 	      self.remember_token = User.encrypt(User.new_remember_token)
 	    end
