@@ -41,7 +41,7 @@ const DataSeries = React.createClass({
     });
 
     return (
-      <g>
+      <g  transform="translate(40, 0)">
         <g>{lines}</g>
       </g>
     );

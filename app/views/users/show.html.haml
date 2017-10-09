@@ -9,8 +9,8 @@
 				%b Вид спорта
 	%tbody
 		%tr
-			%td= @sportsman.name
-			%td= @sportsman.sername
-			%td= sport_name(@sportsman.sport_id)
+			%td= @presenter.sportsman.name
+			%td= @presenter.sportsman.sername
+			%td= sport_name(@presenter.sportsman.sport_id)
 -	if sportsman?
 	= render('sportsman')							

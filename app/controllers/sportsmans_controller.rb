@@ -42,8 +42,11 @@ class SportsmansController < ApplicationController
 
 	def load
 		@results = Relationship.where(competition_id: params[:index]).order(:place)
-	 	#render json: Competition.find(params[:index]).relationships.order(:place).as_json(only: [:result, :place], methods: [:name, :sername])
-	 	render json: ActiveModel::Serializer::CollectionSerializer.new(@results, each_serializer: SportsmanSerializer)
+		
+		respond_to do |format|
+			format.html {redirect_to root_path}
+			format.json { render json: ActiveModel::Serializer::CollectionSerializer.new(@results, each_serializer: SportsmanSerializer) }
+		end	
 	end
 
 	private

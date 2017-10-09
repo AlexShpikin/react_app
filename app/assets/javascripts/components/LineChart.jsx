@@ -14,7 +14,7 @@ var LineChart = React.createClass({
   },
   
   render() {
-    
+    var chart = {};
     var data = this.props.data,
         width = this.props.width,
         height = this.props.height,
@@ -25,9 +25,22 @@ var LineChart = React.createClass({
 
         yScale = d3.scale.linear()
                    .range([height, 10])
-                   .domain([0, this.props.yMax]);               
+                   .domain([0, this.props.yMax]);
+
+        var xSettings = {
+          translate: 'translate(40,' + (height - 1) + ')',
+          scale: xScale,
+          orient: 'bottom',
+          text: '№ Competition'
+        };
+        var ySettings = {
+          translate: 'translate(40, 0)',
+          scale: yScale,
+          orient: 'left',
+          text: 'Score'
+        };           
     return (
-      <svg width={width} height={height}>
+      <svg width="650" height="330">
           <DataSeries
             xScale={xScale}
             yScale={yScale}
@@ -35,6 +48,8 @@ var LineChart = React.createClass({
             width={width}
             height={height}
             />
+            <Axis {...xSettings}/>
+            <Axis {...ySettings}/>
       </svg>
     );
   }

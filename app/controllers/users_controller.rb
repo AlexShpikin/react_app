@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   def show
-    @sportsman = Sportsman.find_by(user_id: params[:id])
-    @competitions = Competition.all.as_json(only: [:id, :title])
-    @results = ActiveModel::Serializer::CollectionSerializer.new(@sportsman.relationships, each_serializer: RelationshipSerializer)
+    @presenter = UserPresenter.new(Sportsman.find_by(user_id: params[:id]), view_context)
   end
 
   def new
