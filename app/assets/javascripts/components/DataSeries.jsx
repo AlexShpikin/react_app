@@ -16,12 +16,11 @@ const DataSeries = React.createClass({
     };
   },
   componentWillMount: function(){
-    console.log(this.props.data)
   },
   render() {
     let { data, colors, xScale, yScale, interpolationType } = this.props;
 
-    let line = d3.svg.line()
+    var line = d3.svg.line()
       .interpolate(interpolationType)
       .x((d) => { return xScale(d.x); })
       .y((d) => { return yScale(d.y); });
@@ -31,7 +30,7 @@ const DataSeries = React.createClass({
             .range([0, 4]);
 
     
-    let lines = data.map((series, id) => {
+    var lines = data.map((series, id) => {
       return (
         <Line
           path={line(series)}

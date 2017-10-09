@@ -103,8 +103,7 @@ var DonutChart=React.createClass({
     propTypes: {
         width:React.PropTypes.number,
         height:React.PropTypes.number,
-        padAngle:React.PropTypes.number,
-        id:React.PropTypes.string.isRequired
+        padAngle:React.PropTypes.number
     },
 
     getDefaultProps: function() {
@@ -125,7 +124,7 @@ var DonutChart=React.createClass({
     componentWillMount:function(){
 
         this.pie=d3.layout.pie()
-            .value(function(d){return d.sportsmans})
+            .value(function(d){return d.sportsmans_count})
             .padAngle(this.props.padAngle)
             .sort(null);
 

@@ -12,17 +12,14 @@ var BarChart = React.createClass({
         };
     },
      componentWillMount: function(){
-        console.log(this.props.data)
     },
 
     render:function(){
-        var data= this.props.data;
-
-        var margin={top:0,right:0,bottom:0,left:0},
-        w=this.state.width-(margin.left+margin.right),
-        h=this.props.height-(margin.top+margin.bottom);
-
-        var transform='translate('+margin.left+','+margin.top+')';
+        var data= this.props.data,
+            margin={top:0,right:0,bottom:0,left:0},
+            w=this.state.width-(margin.left+margin.right),
+            h=this.props.height-(margin.top+margin.bottom),
+            transform='translate('+margin.left+','+margin.top+')';
 
         var x=d3.scale.ordinal()
             .domain(data.map(function(d){
@@ -43,12 +40,14 @@ var BarChart = React.createClass({
 
             )
         });
+        
+        var param = this.props.param;
 
         var rectForeground=(data).map(function(d, i) {
             return (
                 <rect fill="#74d3eb" rx="3" ry="3" key={i}
-                      x={x(d.title)} y={y(d.competitions)} className="shadow"
-                      height={h-d.competitions}
+                      x={x(d.title)} y={y(d[param])} className="shadow"
+                      height={h-d[param]}
                       width={x.rangeBand()}/>
             )
         });

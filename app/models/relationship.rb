@@ -6,16 +6,5 @@ class Relationship < ApplicationRecord
 	belongs_to :sportsman
 	validates :competition, presence: true
 	validates :sportsman, presence: true
-
-	def name
-		sportsman.name
-	end
-
-	def sername
-		sportsman.sername
-	end
 	
-	def all_results
-		competition.relationships.pluck(:result)
-	end
 end

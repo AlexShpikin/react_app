@@ -6,8 +6,8 @@ class HomeController < ApplicationController
   end
   
   def load
-    @sport = Sport.find(params[:index])
-    render :json => @sport, :serializer => SportSerializer 
+    @competitions = Sport.find(params[:index]).competitions
+    render json: ActiveModel::Serializer::CollectionSerializer.new(@competitions, each_serializer: CompetitionSerializer)
   end
 
 end

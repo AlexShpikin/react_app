@@ -18,6 +18,7 @@ class SportsmansController < ApplicationController
 
 	def create
 		@sportsman = Sportsman.new(sportsman_params)
+
 		if @sportsman.save
 			redirect_to user_path(User.find(@sportsman.user_id))
 		else
@@ -40,7 +41,9 @@ class SportsmansController < ApplicationController
 	end
 
 	def load
-	 	render json: Competition.find(params[:index]).relationships.order(:place).as_json(only: [:result, :place], methods: [:name, :sername])
+		@results = Relationship.where(competition_id: params[:index]).order(:place)
+	 	#render json: Competition.find(params[:index]).relationships.order(:place).as_json(only: [:result, :place], methods: [:name, :sername])
+	 	render json: ActiveModel::Serializer::CollectionSerializer.new(@results, each_serializer: SportsmanSerializer)
 	end
 
 	private

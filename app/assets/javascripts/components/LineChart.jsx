@@ -14,18 +14,18 @@ var LineChart = React.createClass({
   },
   
   render() {
-    var data = this.props.data;
-    var width = this.props.width;
-    var height = this.props.height;
+    
+    var data = this.props.data,
+        width = this.props.width,
+        height = this.props.height,
 
-    var xScale = d3.scale.ordinal()
+        xScale = d3.scale.ordinal()
                    .domain(this.props.xValues)
-                   .rangePoints([0, width]);
+                   .rangePoints([0, width]),
 
-    var yScale = d3.scale.linear()
+        yScale = d3.scale.linear()
                    .range([height, 10])
-                   .domain([0, this.props.yMax]);
-    console.log(this.props.xValues)               
+                   .domain([0, this.props.yMax]);               
     return (
       <svg width={width} height={height}>
           <DataSeries

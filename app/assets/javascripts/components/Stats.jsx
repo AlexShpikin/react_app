@@ -8,7 +8,7 @@ var Stats = React.createClass({
 		return {
 			data: this.props.data,
 			active: 0,
-			points: []
+			paramField: 'competitions_count'
 		}
 	},
 	getDefautProps: function(){
@@ -25,11 +25,11 @@ var Stats = React.createClass({
 				data: 'index='+index,
 				dataType: 'JSON',
 				success: function(response){
-					self.setState({data:response.data, active: index, points: response.points})
+					self.setState({data:response, active: index, paramField: 'sportsmans_count'})
 				}
 			})
 		}else{
-			this.setState({data:this.props.data, active: index})
+			this.setState({data:this.props.data, active: index, paramField: 'competitions_count'})
 		}
 	},
 	summElements: function(arr){
@@ -40,15 +40,14 @@ var Stats = React.createClass({
 	render: function(){
 		var secondGraph;
 		if(this.state.active > 0){
-			var dataMiddle = this.state.points.map(function(value, index){return {'x':index, 'y': this.summElements(value.results)/value.results.length}}, this),
-				dataMax = this.state.points.map(function(value, index){return	{'x':index, 'y':Math.max(...value.results)}}),
-	        	xValues = this.state.points.map(function(value, index){return index}),
-	        	yMax = Math.max(...this.state.points.map(function(index){return Math.max(...index.results)})),
+			var dataMiddle = this.state.data.map(function(value, index){return {'x':index, 'y': this.summElements(value.results)/value.results.length}}, this),
+				dataMax = this.state.data.map(function(value, index){return	{'x':index, 'y':Math.max(...value.results)}}),
+	        	xValues = this.state.data.map(function(value, index){return index}),
+	        	yMax = Math.max(...this.state.data.map(function(index){return Math.max(...index.results)})),
 	        	points = [dataMax, dataMiddle];
-	        	
 			secondGraph = <LineChart data={points} yMax={yMax} xValues={xValues} width={600} height={300}/>
 		}else{
-			secondGraph = <DonutChart  data={this.state.data} id='1'/>
+			secondGraph = <DonutChart  data={this.state.data}/>
 		}
 		return  (
 			<div className="container">
@@ -56,7 +55,7 @@ var Stats = React.createClass({
 					<Tabs data={this.props.list} action={this.loadData}/>
 				</div>
 				<div className="content">
-					<BarChart data={this.state.data}/>
+					<BarChart data={this.state.data} param={this.state.paramField}/>
 					{secondGraph}
 				</div>
 			</div>		
